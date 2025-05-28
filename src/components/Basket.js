@@ -1,13 +1,30 @@
 import React from "react";
+import { Navigate } from 'react-router-dom';
 
-function Basket({ cart, removeFromCart }) {
+function Basket({ cart, removeFromCart, onFakePayment, user }) {
   const total = cart
     .reduce((sum, item) => sum + item.quantity * parseFloat(item.price), 0)
     .toFixed(2);
 
+  // Створимо state для редіректу
+  const [redirectToPayment, setRedirectToPayment] = React.useState(false);
+
+  const handlePayment = () => {
+    // Тут можна викликати API для створення замовлення на сервері
+    setRedirectToPayment(true);
+  };
+
+  if (redirectToPayment) {
+    // Перенаправляємо на сторінку оплати
+    return <Navigate to="/payment" />;
+  }
+
   return (
     <div className="basket-container">
       <div className="basket-header">🛒 Ваша корзина</div>
+      <button onClick={handlePayment} className="pay-button">
+        Оплатити
+      </button>
 
       {cart.length === 0 ? (
         <p>Корзина порожня.</p>
@@ -38,4 +55,6 @@ function Basket({ cart, removeFromCart }) {
 }
 
 export default Basket;
+
+
 

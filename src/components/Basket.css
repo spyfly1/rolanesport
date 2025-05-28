@@ -1,0 +1,13 @@
+.pay-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.pay-button:hover {
+  background-color: #218838;
+}

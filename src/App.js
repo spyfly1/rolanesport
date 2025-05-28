@@ -206,10 +206,23 @@ class App extends React.Component {
 
 
 componentDidMount() {
+
   const storedUser = localStorage.getItem('user');
-  if (storedUser) {
-    this.setState({ user: JSON.parse(storedUser) });
+
+  try {
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      if (parsedUser && typeof parsedUser === 'object') {
+        this.setState({ user: parsedUser });
+      }
+    }
+  } catch (e) {
+    console.warn('Помилка при читанні user з localStorage:', e);
+    localStorage.removeItem('user'); // очищаємо пошкоджений запис
   }
+{
+  this.setState({ currentItems: this.state.items });
+}
   this.setState({ currentItems: this.state.items });
 }
 
@@ -274,6 +287,11 @@ toggleRegister = () => {
   this.setState({ showRegister: !this.state.showRegister, showLogin: false });
 };
 
+handleFakePayment = () => {
+  alert("Оплата пройшла успішно!");
+  this.setState({ cart: [], isCartOpen: false });
+};
+
 handleLogin = (user) => {
   localStorage.setItem('user', JSON.stringify(user)); // Зберегти в localStorage
   this.setState({ user, showLogin: false, showRegister: false });
@@ -324,9 +342,11 @@ handleLoginSuccess = () => {
         <div className="modal-overlay" onClick={this.toggleCart}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <Basket
-              cart={this.state.cart}
-              removeFromCart={this.removeFromCart}
-            />
+            cart={this.state.cart}
+        removeFromCart={this.removeFromCart}
+      onFakePayment={this.handleFakePayment}
+/>
+
           </div>
         </div>
       )}
