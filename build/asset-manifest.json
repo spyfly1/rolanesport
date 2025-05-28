@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c6ff6732.css",
+    "main.js": "/static/js/main.e22f0e6c.js",
+    "static/media/Спорт.webp": "/static/media/Спорт.00f500ebe0cca3cf6c31.webp",
+    "index.html": "/index.html",
+    "main.c6ff6732.css.map": "/static/css/main.c6ff6732.css.map",
+    "main.e22f0e6c.js.map": "/static/js/main.e22f0e6c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6ff6732.css",
+    "static/js/main.e22f0e6c.js"
+  ]
+}
