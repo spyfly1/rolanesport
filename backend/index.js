@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
+const path = require('path'); // Додано для роботи з шляхами до файлів
+
 const pool = new Pool({
   host: 'dpg-d0rnqdje5dus739otukg-a.oregon-postgres.render.com',
   port: 5432,
@@ -24,6 +26,17 @@ const PORT = 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Налаштування для обробки статичних файлів (зображення і т.д.)
+app.use(express.static(path.join(__dirname, '..', 'build')));
+
+// Сервінг зображень з public/Img
+app.use('/img', express.static(path.join(__dirname, '..', 'public', 'Img')));
+
+// SPA fallback
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
 
 // ========== API РОУТИ ==========
 
@@ -80,5 +93,6 @@ app.post('/api/register', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущено на порту ${PORT}`);
 });
+
 
 

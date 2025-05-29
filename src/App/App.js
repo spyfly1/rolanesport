@@ -18,7 +18,7 @@ class App extends React.Component {
          {
       id: 1,
       title: "Боксерські рукавички Venum",
-      image: "./img/venum-gloves.webp",
+      image: "/img/venum-gloves.webp",
       desc: "Професійні рукавички з натуральної шкіри для боксу та MMA.",
       category: "Бокс",
       price: "1899.00"
