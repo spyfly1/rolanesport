@@ -1,14 +1,26 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Outlet } from 'react-router-dom'; // Для вставки контенту, залежно від маршруту
+import { Outlet } from 'react-router-dom';
 
-const Layout = () => {
+const Layout = ({ 
+  toggleLogin, 
+  toggleRegister, 
+  toggleCart, 
+  cartItemCount,   // 👈 приходить з App.jsx
+  user 
+}) => {
   return (
     <div>
-      <Header />
+      <Header 
+        onLoginClick={toggleLogin}
+        onRegisterClick={toggleRegister}
+        toggleCart={toggleCart}
+        cartCount={cartItemCount}   // ✅ використовуємо проп cartItemCount
+        user={user}
+      />
       <main>
-        <Outlet />  {/* Це місце для відображення контенту залежно від маршруту */}
+        <Outlet />
       </main>
       <Footer />
     </div>
@@ -16,3 +28,5 @@ const Layout = () => {
 };
 
 export default Layout;
+
+

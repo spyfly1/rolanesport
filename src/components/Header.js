@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../pages/SearchBar';
 import './Header.css';
 
-export default function Header({ toggleCart, cartCount, onLoginClick, onRegisterClick, user, onLogout }) {
+export default function Header({ toggleCart, cartItemCount, onLoginClick, onRegisterClick, user, onLogout }) {
   const navigate = useNavigate();
 
   const handleSearch = (query) => {
@@ -35,7 +35,7 @@ export default function Header({ toggleCart, cartCount, onLoginClick, onRegister
             </>
           )}
           <li>
-            <button onClick={toggleCart} className="cart-btn">🛒 Корзина ({cartCount})</button>
+            <button onClick={toggleCart} className="cart-btn">🛒 Корзина ({cartItemCount})</button>
           </li>
         </ul>
       </div>

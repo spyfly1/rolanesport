@@ -26,7 +26,7 @@ class App extends React.Component {
     {
       id: 2,
       title: "Футбольний м'яч Adidas UEFA",
-      image: "./images/adidas-ball.webp",
+      image: "/Img/shopping (1).webp",
       desc: "Офіційний м'яч Ліги Чемпіонів сезону 2024.",
       category: "Футбол",
       price: "1299.00"
@@ -34,7 +34,7 @@ class App extends React.Component {
     {
       id: 3,
       title: "Гантелі 10 кг (пара)",
-      image: "./images/dumbbells-10kg.webp",
+      image: "/Img/shopping (2).webp",
       desc: "Гумові гантелі для домашнього та професійного використання.",
       category: "Фітнес",
       price: "1599.00"
@@ -42,7 +42,7 @@ class App extends React.Component {
     {
       id: 4,
       title: "Кросівки Nike Air Zoom Pegasus",
-      image: "./images/nike-pegasus.webp",
+      image: "/Img/shopping.webp",
       desc: "Універсальне спортивне взуття для бігу та фітнесу.",
       category: "Взуття",
       price: "3599.00"
@@ -50,7 +50,7 @@ class App extends React.Component {
     {
       id: 5,
       title: "Скакалка зі сталевим тросом",
-      image: "./images/jump-rope.webp",
+      image: "/Img/shopping (1).webp",
       desc: "Професійна скакалка для кардіо-тренувань та боксу.",
       category: "Аксесуари",
       price: "499.00"
@@ -58,7 +58,7 @@ class App extends React.Component {
     {
       id: 6,
       title: "Термокофта для тренувань",
-      image: "./images/thermal-shirt.webp",
+      image: "/Img/shopping (4).webp",
       desc: "Зберігає тепло тіла та забезпечує комфорт під час занять спортом.",
       category: "Одяг",
       price: "899.00"
@@ -66,7 +66,7 @@ class App extends React.Component {
     {
       id: 7,
       title: "Фітнес-килимок 8 мм",
-      image: "./images/yoga-mat.webp",
+      image: "/Img/shopping (5).webp",
       desc: "М’який та нековзкий килимок для йоги та фітнесу.",
       category: "Фітнес",
       price: "699.00"
@@ -74,7 +74,7 @@ class App extends React.Component {
     {
       id: 8,
       title: "Спортивна сумка Puma",
-      image: "./images/sport-bag.webp",
+      image: "/Img/shopping (6).webp",
       desc: "Містка та зручна сумка для тренувань та подорожей.",
       category: "Аксесуари",
       price: "1099.00"
@@ -82,7 +82,7 @@ class App extends React.Component {
     {
       id: 9,
       title: "Баскетбольний м’яч Spalding",
-      image: "./images/basketball.webp",
+      image: "/Img/shopping (7).webp",
       desc: "Офіційний розмір, чудове зчеплення та довговічність.",
       category: "Баскетбол",
       price: "1599.00"
@@ -90,7 +90,7 @@ class App extends React.Component {
     {
       id: 10,
       title: "Еспандер для рук",
-      image: "./images/hand-expander.webp",
+      image: "/Img/shopping (8).webp",
       desc: "Для зміцнення м’язів передпліччя та кисті.",
       category: "Фітнес",
       price: "299.99"
@@ -98,7 +98,7 @@ class App extends React.Component {
     {
       id: 11,
       title: "Тренувальні штани Nike Dri-FIT",
-      image: "./images/training-pants.webp",
+      image: "/Img/shopping (9).webp",
       desc: "Зручні, дихаючі штани для щоденних тренувань.",
       category: "Одяг",
       price: "1199.99"
@@ -106,7 +106,7 @@ class App extends React.Component {
     {
       id: 12,
       title: "Штанга 20 кг з грифом",
-      image: "./images/barbell.webp",
+      image: "/Img/shopping (10).webp",
       desc: "Металева штанга з гумовим покриттям.",
       category: "Силові тренажери",
       price: "2899.99"
@@ -114,7 +114,7 @@ class App extends React.Component {
     {
       id: 13,
       title: "Спортивні навушники JBL Endurance",
-      image: "./images/sport-headphones.webp",
+      image: "/Img/shopping (11).webp",
       desc: "Водонепроникні навушники для бігу та тренувань.",
       category: "Аксесуари",
       price: "1399.00"
@@ -122,7 +122,7 @@ class App extends React.Component {
     {
       id: 14,
       title: "Гімнастичний м’яч 65 см",
-      image: "./images/gym-ball.webp",
+      image: "/Img/shopping (12).webp",
       desc: "Ідеально підходить для розтяжки та зміцнення м’язів.",
       category: "Фітнес",
       price: "599.00"
@@ -130,7 +130,7 @@ class App extends React.Component {
     {
       id: 15,
       title: "Ролик для пресу",
-      image: "./images/ab-roller.webp",
+      image: "/Img/shopping (13).webp",
       desc: "Компактний тренажер для м'язів живота.",
       category: "Фітнес",
       price: "449.00"
@@ -138,7 +138,7 @@ class App extends React.Component {
     {
       id: 16,
       title: "Спортивна пляшка 700 мл",
-      image: "./images/sport-bottle.webp",
+      image: "/Img/shopping (14).webp",
       desc: "Легка пляшка з носиком для пиття під час тренувань.",
       category: "Аксесуари",
       price: "199.00"
@@ -146,7 +146,7 @@ class App extends React.Component {
     {
       id: 17,
       title: "Шкарпетки спортивні (3 пари)",
-      image: "./images/sport-socks.webp",
+      image: "/Img/shopping (15).webp",
       desc: "Дихаючі, анатомічні, для активних навантажень.",
       category: "Одяг",
       price: "349.00"
@@ -154,7 +154,7 @@ class App extends React.Component {
     {
       id: 18,
       title: "Набір резинок для фітнесу",
-      image: "./images/resistance-bands.webp",
+      image: "/Img/16 shopinmg.webp",
       desc: "Набір з 5 еспандерів з різною жорсткістю.",
       category: "Фітнес",
       price: "499.00"
@@ -162,7 +162,7 @@ class App extends React.Component {
     {
       id: 19,
       title: "Ковдра для кемпінгу SportLine",
-      image: "./images/camping-blanket.webp",
+      image: "/Img/shopping (16).webp",
       desc: "Легка ковдра для активного відпочинку та подорожей.",
       category: "Туризм",
       price: "899.99"
@@ -170,7 +170,7 @@ class App extends React.Component {
     {
       id: 20,
       title: "Налокітники захисні",
-      image: "./images/elbow-pads.webp",
+      image: "/Img/18shop.webp",
       desc: "Захист суглобів під час інтенсивних тренувань.",
       category: "Захист",
       price: "599.00"
@@ -199,7 +199,7 @@ toggleAuthModal = () => {
     this.setState(prev => ({ isAuthModalOpen: !prev.isAuthModalOpen }));
   };
 
-  componentDidMount() {
+ componentDidMount() {
     const storedUser = localStorage.getItem('user');
     try {
       if (storedUser) {
@@ -261,45 +261,46 @@ toggleAuthModal = () => {
     }));
   }
 
-   toggleCart = () => {
+  toggleCart() {
     this.setState(prevState => ({
       isCartOpen: !prevState.isCartOpen
     }));
-  };
+  }
 
-  toggleLogin = () => {
+  toggleLogin() {
     this.setState({ showLogin: !this.state.showLogin, showRegister: false });
-  };
+  }
 
-  toggleRegister = () => {
+  toggleRegister() {
     this.setState({ showRegister: !this.state.showRegister, showLogin: false });
-  };
+  }
 
-  handleFakePayment = () => {
+  handleFakePayment() {
     console.log('Fake payment made!');
-    this.setState({ cart: [] }); // Очистити кошик після оплати
-  };
+    this.setState({ cart: [] });
+  }
 
-  handleLogin = (user) => {
-    localStorage.setItem('user', JSON.stringify(user)); // Зберегти в localStorage
+  handleLogin(user) {
+    localStorage.setItem('user', JSON.stringify(user)); 
     this.setState({ user, showLogin: false, showRegister: false });
-  };
+  }
 
-  handleLogout = () => {
+  handleLogout() {
     this.setState({ user: null });
-  };
+  }
 
-  handleRegister = (user) => {
+  handleRegister(user) {
     this.setState({ user, showRegister: false });
-  };
+  }
 
-  handleLoginSuccess = () => {
+  handleLoginSuccess() {
     this.setState({ isLoggedIn: true, isAuthModalOpen: false });
-  };
- render() {
-  const categories = ['Всі', ...new Set(this.state.items.map(item => item.category))];
+  }
 
-  return (
+  render() {
+    const categories = ['Всі', ...new Set(this.state.items.map(item => item.category))];
+
+    return (
       <div className="wrapper">
         {/* Модальні вікна для входу та реєстрації */}
         {(this.state.showLogin || this.state.showRegister) && (
@@ -329,7 +330,15 @@ toggleAuthModal = () => {
 
         {/* Маршрутизація */}
         <Routes>
-          <Route element={<Layout />}> {/* Використовуємо Layout для обгортання */}
+          <Route element={
+  <Layout
+    toggleLogin={() => this.toggleLogin()}
+    toggleRegister={() => this.toggleRegister()}
+    toggleCart={this.toggleCart}
+    cartItemCount={this.state.cart.length}
+    user={this.state.user}
+  />
+}>
             <Route path="/" element={<HomePage items={this.state.currentItems} addToCart={this.addToCart} setCategory={this.setCategory} />} />
             <Route path="/search" element={<SearchResults items={this.state.items} />} />
             <Route path="/cabinet" element={<Cabinet user={this.state.user} />} />
