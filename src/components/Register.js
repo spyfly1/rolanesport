@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
 
-function Register({ onRegister }) {
+const Register = ({ onRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (username && password) {
-      onRegister({ username });
-    } else {
-      setError('Будь ласка, введіть логін і пароль.');
+    try {
+      const response = await fetch('http://localhost:5000/api/register', {  // шлях до твоєї реєстрації
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        onRegister(data.user);  // Передаємо користувача в батьківський компонент
+      } else {
+        setError(data.message);  // Виводимо помилку, якщо реєстрація не вдалася
+      }
+    } catch (err) {
+      setError('Сталася помилка при реєстрації');
     }
   };
 
@@ -24,6 +38,7 @@ function Register({ onRegister }) {
         placeholder="Логін"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        required
         className="login-input"
       />
       <input
@@ -31,11 +46,13 @@ function Register({ onRegister }) {
         placeholder="Пароль"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required
         className="login-input"
       />
       <button type="submit" className="login-button">Зареєструватися</button>
     </form>
   );
-}
+};
 
 export default Register;
+

@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');  // Імпортуємо пакет для PostgreSQL
+const { Pool } = require('pg');
 const pool = new Pool({
-  host: 'dpg-d0rnqdje5dus739otukg-a.oregon-postgres.render.com',  // Хост з Render
-  port: 5432,  // Порт PostgreSQL
-  user: 'rolanadmin',  // Користувач з Render
-  password: '2TTDT306KqbZsylAzdfqZMHcd3MHPYzR',  // Пароль з Render
-  database: 'rolanesport',  // Назва твоєї бази даних на Render
+  host: 'dpg-d0rnqdje5dus739otukg-a.oregon-postgres.render.com',
+  port: 5432,
+  user: 'rolanadmin',
+  password: '2TTDT306KqbZsylAzdfqZMHcd3MHPYzR',
+  database: 'rolanesport',
 });
 
 // Тестове з'єднання
@@ -23,59 +23,62 @@ const PORT = 5000;
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // для парсингу JSON тіла запиту
+app.use(express.json());
 
 // ========== API РОУТИ ==========
 
-// Товари (можна буде замінити на дані з БД)
-app.get('/api/products', (req, res) => {
-  pool.query('SELECT * FROM products', (err, results) => {  // Використовуємо pool для запиту до PostgreSQL
-    if (err) {
-      console.error('DB error:', err);
-      return res.status(500).json({ error: 'Помилка при завантаженні товарів' });
+// Логін користувача
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Параметризований запит для безпеки
+    const result = await pool.query(
+      'SELECT * FROM users WHERE username = $1 AND password = $2',
+      [username, password]
+    );
+
+    if (result.rows.length > 0) {
+      const user = result.rows[0];
+      res.json({ success: true, user: { id: user.id, username: user.username } });
+    } else {
+      res.status(401).json({ success: false, message: 'Невірний логін або пароль' });
     }
-    res.json(results.rows);  // PostgreSQL повертає результат через rows
-  });
+  } catch (err) {
+    console.error('DB error:', err);
+    res.status(500).json({ error: 'Помилка бази даних' });
+  }
 });
 
-// Імітація оплати
-app.post('/api/payment', (req, res) => {
-  // У реальному випадку тут зберігалися б замовлення в БД
-  res.json({ success: true, message: 'Оплата успішна! Дякуємо за замовлення.' });
-});
+// Реєстрація користувача
+app.post('/api/register', async (req, res) => {
+  const { username, password } = req.body;
 
-// Логін користувача / адміна
-app.post('/api/login', (req, res) => {
-  const { email, password } = req.body;
+  try {
+    // Перевірка чи є вже користувач з таким логіном
+    const existingUser = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
 
-  pool.query(
-    'SELECT * FROM users WHERE email = $1 AND password = $2',  // Використовуємо параметризовані запити
-    [email, password],
-    (err, results) => {
-      if (err) {
-        console.error('DB error:', err);
-        return res.status(500).json({ error: 'Помилка бази даних' });
-      }
-
-      if (results.rows.length > 0) {
-        const user = results.rows[0];  // PostgreSQL повертає результат через rows
-        res.json({
-          success: true,
-          user: {
-            id: user.id,
-            email: user.email,
-            role: user.role, // 'admin' або 'user'
-          },
-        });
-      } else {
-        res.status(401).json({ success: false, message: 'Невірний email або пароль' });
-      }
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ success: false, message: 'Користувач вже існує' });
     }
-  );
+
+    // Додавання нового користувача до БД
+    const result = await pool.query(
+      'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id, username',
+      [username, password]
+    );
+
+    const newUser = result.rows[0];
+    res.status(201).json({ success: true, user: { id: newUser.id, username: newUser.username } });
+  } catch (err) {
+    console.error('DB error:', err);
+    res.status(500).json({ error: 'Помилка бази даних' });
+  }
 });
 
 // Запуск сервера
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущено на порту ${PORT}`);
 });
+
 

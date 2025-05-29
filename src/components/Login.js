@@ -5,16 +5,27 @@ const Login = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const correctUsername = 'admin';
-    const correctPassword = '1234';
+    try {
+      const response = await fetch('http://localhost:5000/api/login', {  // або зміни на свій хост бекенду
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (username === correctUsername && password === correctPassword) {
-      onLogin();
-    } else {
-      setError('Неправильний логін або пароль');
+      const data = await response.json();
+
+      if (data.success) {
+        onLogin(data.user);  // Передаємо дані користувача в батьківський компонент
+      } else {
+        setError(data.message);  // Виводимо помилку, якщо логін чи пароль невірні
+      }
+    } catch (err) {
+      setError('Сталася помилка при спробі авторизації');
     }
   };
 

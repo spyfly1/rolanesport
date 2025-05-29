@@ -1,21 +1,17 @@
-import React from "react"
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Items from "./components/Items_tems";
-import Categories from './components/Categories';
-import Basket from "./components/Basket";
-import Login from './components/Login';
-import Register from './components/Register';
-import Cabinet from './components/Cabinet'; // <-- якщо він там лежить
+import React from "react";
 import { Routes, Route } from 'react-router-dom';
-import SearchResults from './components/SearchResults';
-
-
-
+import Basket from "../components/Basket";
+import Login from '../components/Login';
+import Register from '../components/Register';
+import Cabinet from '../pages/Cabinet';
+import SearchResults from '../pages/SearchResults';
+import HomePage from '../pages/HomePage';
+import Layout from '../components/Layout';
+import Payment from '../pages/Payment'; // Якщо у тебе є цей компонент
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isAuthenticated: false,
       items: [
@@ -191,7 +187,7 @@ class App extends React.Component {
       showRegister: false
     };
     
-
+// методи для обробки стану
     this.setCategory = this.setCategory.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -199,36 +195,29 @@ class App extends React.Component {
     this.toggleCart = this.toggleCart.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
+toggleAuthModal = () => {
+    this.setState(prev => ({ isAuthModalOpen: !prev.isAuthModalOpen }));
+  };
 
-  toggleAuthModal = () => {
-  this.setState(prev => ({ isAuthModalOpen: !prev.isAuthModalOpen }));
-};
-
-
-componentDidMount() {
-
-  const storedUser = localStorage.getItem('user');
-
-  try {
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      if (parsedUser && typeof parsedUser === 'object') {
-        this.setState({ user: parsedUser });
+  componentDidMount() {
+    const storedUser = localStorage.getItem('user');
+    try {
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        if (parsedUser && typeof parsedUser === 'object') {
+          this.setState({ user: parsedUser });
+        }
       }
+    } catch (e) {
+      console.warn('Помилка при читанні user з localStorage:', e);
+      localStorage.removeItem('user');
     }
-  } catch (e) {
-    console.warn('Помилка при читанні user з localStorage:', e);
-    localStorage.removeItem('user'); // очищаємо пошкоджений запис
-  }
-{
-  this.setState({ currentItems: this.state.items });
-}
-  this.setState({ currentItems: this.state.items });
-}
 
+    this.setState({ currentItems: this.state.items });
+  }
 
   setCategory(category) {
-    if (category === 'Усі') {
+    if (category === 'Всі') {
       this.setState({ currentItems: this.state.items });
     } else {
       const filtered = this.state.items.filter(item => item.category === category);
@@ -272,102 +261,85 @@ componentDidMount() {
     }));
   }
 
-  toggleCart() {
-    this.setState(prev => ({ isCartOpen: !prev.isCartOpen }));
-  }
-  
-  handleLogin() {
-  this.setState({ isAuthenticated: true });
-}
-toggleLogin = () => {
-  this.setState({ showLogin: !this.state.showLogin, showRegister: false });
-};
+   toggleCart = () => {
+    this.setState(prevState => ({
+      isCartOpen: !prevState.isCartOpen
+    }));
+  };
 
-toggleRegister = () => {
-  this.setState({ showRegister: !this.state.showRegister, showLogin: false });
-};
+  toggleLogin = () => {
+    this.setState({ showLogin: !this.state.showLogin, showRegister: false });
+  };
 
-handleFakePayment = () => {
-  alert("Оплата пройшла успішно!");
-  this.setState({ cart: [], isCartOpen: false });
-};
+  toggleRegister = () => {
+    this.setState({ showRegister: !this.state.showRegister, showLogin: false });
+  };
 
-handleLogin = (user) => {
-  localStorage.setItem('user', JSON.stringify(user)); // Зберегти в localStorage
-  this.setState({ user, showLogin: false, showRegister: false });
-};
+  handleFakePayment = () => {
+    console.log('Fake payment made!');
+    this.setState({ cart: [] }); // Очистити кошик після оплати
+  };
 
+  handleLogin = (user) => {
+    localStorage.setItem('user', JSON.stringify(user)); // Зберегти в localStorage
+    this.setState({ user, showLogin: false, showRegister: false });
+  };
 
-handleLogout = () => {
-  this.setState({ user: null });
-};
+  handleLogout = () => {
+    this.setState({ user: null });
+  };
 
-handleRegister = (user) => {
-  this.setState({ user, showRegister: false });
-};
+  handleRegister = (user) => {
+    this.setState({ user, showRegister: false });
+  };
 
-handleLoginSuccess = () => {
-  this.setState({ isLoggedIn: true, isAuthModalOpen: false });
-};
-
-
+  handleLoginSuccess = () => {
+    this.setState({ isLoggedIn: true, isAuthModalOpen: false });
+  };
  render() {
   const categories = ['Всі', ...new Set(this.state.items.map(item => item.category))];
 
   return (
-    <div className="wrapper">
-      <Header
-        toggleCart={this.toggleCart}
-        cartCount={this.state.cart.length}
-        onLoginClick={this.toggleLogin}
-        onRegisterClick={this.toggleRegister}
-        user={this.state.user}
-        onLogout={this.handleLogout}
-      />
-
-      {/* Модальні вікна */}
-      {(this.state.showLogin || this.state.showRegister) && (
-        <div className="modal-overlay" onClick={() => this.setState({ showLogin: false, showRegister: false })}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            {this.state.showLogin ? (
-              <Login onLogin={this.handleLogin} />
-            ) : (
-              <Register onRegister={this.handleRegister} />
-            )}
+      <div className="wrapper">
+        {/* Модальні вікна для входу та реєстрації */}
+        {(this.state.showLogin || this.state.showRegister) && (
+          <div className="modal-overlay" onClick={() => this.setState({ showLogin: false, showRegister: false })}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              {this.state.showLogin ? (
+                <Login onLogin={this.handleLogin} />
+              ) : (
+                <Register onRegister={this.handleRegister} />
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {this.state.isCartOpen && (
-        <div className="modal-overlay" onClick={this.toggleCart}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <Basket
-            cart={this.state.cart}
-        removeFromCart={this.removeFromCart}
-      onFakePayment={this.handleFakePayment}
-/>
-
+        {/* Модальне вікно кошика */}
+        {this.state.isCartOpen && (
+          <div className="modal-overlay" onClick={this.toggleCart}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <Basket
+                cart={this.state.cart}
+                removeFromCart={this.removeFromCart}
+                onFakePayment={this.handleFakePayment}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-     <Routes>
-  <Route path="/" element={
-    <>
-      <Categories setCategory={this.setCategory} />
-      <Items items={this.state.currentItems} onAdd={this.addToCart} />
-    </>
-  } />
-  
-  <Route path="/search" element={<SearchResults items={this.state.items} />} />
-  
-  <Route path="/cabinet" element={<Cabinet user={this.state.user} />} />
-</Routes>
+        {/* Маршрутизація */}
+        <Routes>
+          <Route element={<Layout />}> {/* Використовуємо Layout для обгортання */}
+            <Route path="/" element={<HomePage items={this.state.currentItems} addToCart={this.addToCart} setCategory={this.setCategory} />} />
+            <Route path="/search" element={<SearchResults items={this.state.items} />} />
+            <Route path="/cabinet" element={<Cabinet user={this.state.user} />} />
+            <Route path="/payment" element={<Payment />} />
+          </Route>
+        </Routes>
 
-      <Footer />
-    </div>
-  );
-}
+      </div>
+    );
+  }
 }
 
 export default App;

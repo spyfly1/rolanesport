@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import SearchBar from './SearchBar';
+import SearchBar from '../pages/SearchBar';
 import './Header.css';
 
 export default function Header({ toggleCart, cartCount, onLoginClick, onRegisterClick, user, onLogout }) {

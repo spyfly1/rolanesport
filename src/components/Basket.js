@@ -55,6 +55,3 @@ function Basket({ cart, removeFromCart, onFakePayment, user }) {
 }
 
 export default Basket;
-
-
-
