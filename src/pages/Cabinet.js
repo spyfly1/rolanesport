@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import './Cabinet.css';
-
 const Cabinet = ({ user, logout }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -34,70 +33,52 @@ const Cabinet = ({ user, logout }) => {
   };
 
   const handleSave = () => {
+    // Тут має бути логіка збереження оновлених даних, наприклад, виклик API
     alert('Дані збережено: ' + JSON.stringify(formData, null, 2));
     setIsEditing(false);
   };
 
   const handleChangePassword = () => {
+    // Тут має бути логіка зміни пароля (запит на сервер)
     alert('Пароль змінено (псевдо)');
     setIsChangingPassword(false);
   };
 
   return (
-    <div className="wrapper">
-      <h1>Особистий кабінет</h1>
+    <div className="wrapper" style={{ padding: '20px' }}>
+      <h1 style={{ marginBottom: '20px' }}>Особистий кабінет</h1>
 
-      <div className="cabinet-container">
+      <div style={{
+        background: '#fff',
+        padding: '20px',
+        borderRadius: '12px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+        maxWidth: '600px',
+        margin: '0 auto 40px auto'
+      }}>
         <h2>Мій аккаунт</h2>
 
         {isEditing ? (
           <>
             <label>
               Ім’я:<br />
-              <input
-                className="login-input"
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </label>
-            <br /><br />
+              <input type="text" name="name" value={formData.name} onChange={handleChange} />
+            </label><br /><br />
             <label>
               Email:<br />
-              <input
-                className="login-input"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </label>
-            <br /><br />
+              <input type="email" name="email" value={formData.email} onChange={handleChange} />
+            </label><br /><br />
             <label>
               Адреса проживання:<br />
-              <input
-                className="login-input"
-                type="text"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-              />
-            </label>
-            <br /><br />
+              <input type="text" name="address" value={formData.address} onChange={handleChange} />
+            </label><br /><br />
             <label>
               Телефон:<br />
-              <input
-                className="login-input"
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-            </label>
-            <br /><br />
-            <button onClick={handleSave} className="login-button">Зберегти</button>
-            <button onClick={handleEditToggle} className="auth-button">Скасувати</button>
+              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
+            </label><br /><br />
+
+            <button onClick={handleSave} style={{ marginRight: '10px' }}>Зберегти</button>
+            <button onClick={handleEditToggle}>Скасувати</button>
           </>
         ) : (
           <>
@@ -105,31 +86,36 @@ const Cabinet = ({ user, logout }) => {
             <p><strong>Email:</strong> {user.email || 'Невідомо'}</p>
             <p><strong>Адреса проживання:</strong> {user.address || 'Невідомо'}</p>
             <p><strong>Телефон:</strong> {user.phone || 'Невідомо'}</p>
-            <button onClick={handleEditToggle} className="login-button">Редагувати дані</button>
-            <button onClick={handlePasswordToggle} className="auth-button">Змінити пароль</button>
+            <button onClick={handleEditToggle} style={{ marginRight: '10px' }}>Редагувати дані</button>
+            <button onClick={handlePasswordToggle}>Змінити пароль</button>
           </>
         )}
 
         {isChangingPassword && (
-          <div className="password-section">
+          <div style={{ marginTop: '20px' }}>
             <h3>Зміна пароля</h3>
             <label>
               Старий пароль:<br />
-              <input className="login-input" type="password" name="oldPassword" />
-            </label>
-            <br /><br />
+              <input type="password" name="oldPassword" />
+            </label><br /><br />
             <label>
               Новий пароль:<br />
-              <input className="login-input" type="password" name="newPassword" />
-            </label>
-            <br /><br />
-            <button onClick={handleChangePassword} className="login-button">Змінити</button>
-            <button onClick={handlePasswordToggle} className="auth-button">Скасувати</button>
+              <input type="password" name="newPassword" />
+            </label><br /><br />
+            <button onClick={handleChangePassword} style={{ marginRight: '10px' }}>Змінити</button>
+            <button onClick={handlePasswordToggle}>Скасувати</button>
           </div>
         )}
       </div>
 
-      <div className="cabinet-container">
+      <div style={{
+        background: '#fff',
+        padding: '20px',
+        borderRadius: '12px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+        maxWidth: '600px',
+        margin: '0 auto 40px auto'
+      }}>
         <h2>Історія замовлень</h2>
         {user.orders && user.orders.length > 0 ? (
           <ul>
@@ -145,12 +131,11 @@ const Cabinet = ({ user, logout }) => {
       </div>
 
       <div style={{ textAlign: 'center' }}>
-        <button onClick={logout} className="login-button">Вийти</button>
+        <button onClick={logout} style={{ padding: '10px 20px', fontSize: '16px' }}>Вийти</button>
       </div>
     </div>
   );
 };
 
 export default Cabinet;
-
 
