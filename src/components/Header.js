@@ -35,7 +35,7 @@ export default function Header({ toggleCart, cartItemCount, onLoginClick, onRegi
             </>
           )}
           <li>
-            <button onClick={toggleCart} className="cart-btn">🛒 Корзина ({cartItemCount})</button>
+            <button onClick={toggleCart} className="cart-btn">🛒 Корзина</button>
           </li>
         </ul>
       </div>

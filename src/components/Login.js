@@ -5,29 +5,32 @@ const Login = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+const handleLogin = async (e) => {
+  e.preventDefault();
 
-    try {
-      const response = await fetch('http://localhost:5000/api/login', {  // або зміни на свій хост бекенду
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+  try {
+    const response = await fetch('http://localhost:5000/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
 
-      const data = await response.json();
-
-      if (data.success) {
-        onLogin(data.user);  // Передаємо дані користувача в батьківський компонент
-      } else {
-        setError(data.message);  // Виводимо помилку, якщо логін чи пароль невірні
-      }
-    } catch (err) {
-      setError('Сталася помилка при спробі авторизації');
+    if (!response.ok) {
+      const errData = await response.json();
+      throw new Error(errData.message || 'Помилка авторизації');
     }
-  };
+
+    const data = await response.json();
+
+    if (data.success) {
+      onLogin(data.user);
+    } else {
+      setError(data.message);
+    }
+  } catch (err) {
+    setError(err.message || 'Сталася помилка при спробі авторизації');
+  }
+};
 
   return (
     <form className="login-modal" onSubmit={handleLogin}>

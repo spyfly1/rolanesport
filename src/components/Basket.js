@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from 'react-router-dom';
-
+import './Basket.css';
 function Basket({ cart, removeFromCart, onFakePayment, user }) {
   const total = cart
     .reduce((sum, item) => sum + item.quantity * parseFloat(item.price), 0)

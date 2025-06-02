@@ -5,7 +5,7 @@ import React from 'react';
 const HomePage = ({ items, addToCart, setCategory }) => (
   <>
     <Categories chooseCategory={setCategory} />
-    <Items items={items} onAdd={addToCart} />
+    <Items items={items} onAddToCart={addToCart} />
   </>
 );
 

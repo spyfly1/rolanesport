@@ -18,7 +18,7 @@ class App extends React.Component {
          {
       id: 1,
       title: "Боксерські рукавички Venum",
-      image: "/img/venum-gloves.webp",
+      image: "/Img/shopping.webp",
       desc: "Професійні рукавички з натуральної шкіри для боксу та MMA.",
       category: "Бокс",
       price: "1899.00"
@@ -50,7 +50,7 @@ class App extends React.Component {
     {
       id: 5,
       title: "Скакалка зі сталевим тросом",
-      image: "/Img/shopping (1).webp",
+      image: "/Img/shopping (17).webp",
       desc: "Професійна скакалка для кардіо-тренувань та боксу.",
       category: "Аксесуари",
       price: "499.00"
@@ -342,7 +342,8 @@ toggleAuthModal = () => {
             <Route path="/" element={<HomePage items={this.state.currentItems} addToCart={this.addToCart} setCategory={this.setCategory} />} />
             <Route path="/search" element={<SearchResults items={this.state.items} />} />
             <Route path="/cabinet" element={<Cabinet user={this.state.user} />} />
-            <Route path="/payment" element={<Payment />} />
+            <Route path="/payment" element={<Payment user={this.state.user} cart={this.state.cart} />} />
+
           </Route>
         </Routes>
 

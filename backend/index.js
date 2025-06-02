@@ -33,11 +33,6 @@ app.use(express.static(path.join(__dirname, '..', 'build')));
 // Сервінг зображень з public/Img
 app.use('/img', express.static(path.join(__dirname, '..', 'public', 'Img')));
 
-// SPA fallback
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-});
-
 // ========== API РОУТИ ==========
 
 // Логін користувача
@@ -89,6 +84,11 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+// SPA fallback
+      app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+      });
+      
 // Запуск сервера
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущено на порту ${PORT}`);

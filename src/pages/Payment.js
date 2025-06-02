@@ -1,49 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
-const Payment = ({ user, cart }) => {
-  const [orderConfirmed, setOrderConfirmed] = useState(false);
-  const navigate = useNavigate();
+const Payment = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    address: '',
+    phone: '',
+    email: '',
+  });
 
-  useEffect(() => {
-    if (!user) {
-      // Якщо користувач не авторизований, редіректимо на головну
-      navigate('/');
-    }
-  }, [user, navigate]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const total = cart
-    .reduce((sum, item) => sum + item.quantity * parseFloat(item.price), 0)
-    .toFixed(2);
-
-  const handleConfirmOrder = () => {
-    // Запит на сервер для збереження замовлення (написати API)
-    console.log('Замовлення підтверджено!');
-    setOrderConfirmed(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Дані замовлення:', formData);
+    // Тут можна реалізувати передачу в БД
   };
 
   return (
-    <div className="payment-container">
-      <h1>Оплата</h1>
-      <h2>Особисті дані</h2>
-      <p><strong>Ім’я:</strong> {user?.name || 'Невідомо'}</p>
-      <p><strong>Email:</strong> {user?.email || 'Невідомо'}</p>
-      <p><strong>Адреса:</strong> {user?.address || 'Невідомо'}</p>
-      <p><strong>Телефон:</strong> {user?.phone || 'Невідомо'}</p>
-
-      <h2>Деталі замовлення</h2>
-      <ul>
-        {cart.map(item => (
-          <li key={item.id}>{item.title} — {item.quantity} шт. — {item.price} грн</li>
-        ))}
-      </ul>
-      <div><strong>Сума замовлення: {total} грн</strong></div>
-
-      <button onClick={handleConfirmOrder}>Підтвердити замовлення</button>
-
-      {orderConfirmed && <p>Ваше замовлення підтверджено! Очікуйте на доставку.</p>}
+    <div className="wrapper">
+      <h2 className="payment-title">Оформлення замовлення</h2>
+      <form className="payment-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="firstName"
+          placeholder="Ім'я"
+          value={formData.firstName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Прізвище"
+          value={formData.lastName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="address"
+          placeholder="Адреса доставки"
+          value={formData.address}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Телефон"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email (необов'язково)"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        <button type="submit" className="login-button">Підтвердити замовлення</button>
+      </form>
     </div>
   );
 };
 
 export default Payment;
+
