@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
-const path = require('path'); // Додано для роботи з шляхами до файлів
+const path = require('path'); // Для роботи з файлами
 
 const pool = new Pool({
   host: 'dpg-d0rnqdje5dus739otukg-a.oregon-postgres.render.com',
@@ -9,6 +9,9 @@ const pool = new Pool({
   user: 'rolanadmin',
   password: '2TTDT306KqbZsylAzdfqZMHcd3MHPYzR',
   database: 'rolanesport',
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 // Тестове з'єднання
@@ -40,7 +43,6 @@ app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Параметризований запит для безпеки
     const result = await pool.query(
       'SELECT * FROM users WHERE username = $1 AND password = $2',
       [username, password]
@@ -63,14 +65,12 @@ app.post('/api/register', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Перевірка чи є вже користувач з таким логіном
     const existingUser = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
 
     if (existingUser.rows.length > 0) {
       return res.status(400).json({ success: false, message: 'Користувач вже існує' });
     }
 
-    // Додавання нового користувача до БД
     const result = await pool.query(
       'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id, username',
       [username, password]
@@ -85,14 +85,15 @@ app.post('/api/register', async (req, res) => {
 });
 
 // SPA fallback
-      app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-      });
-      
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
+
 // Запуск сервера
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущено на порту ${PORT}`);
 });
+
 
 
 
