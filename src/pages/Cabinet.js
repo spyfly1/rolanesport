@@ -32,11 +32,28 @@ const Cabinet = ({ user, logout }) => {
     }));
   };
 
-  const handleSave = () => {
-    // Тут має бути логіка збереження оновлених даних, наприклад, виклик API
-    alert('Дані збережено: ' + JSON.stringify(formData, null, 2));
-    setIsEditing(false);
-  };
+ const handleSave = async () => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/user/${user.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    if (response.ok) {
+      alert('Дані успішно збережені!');
+      setIsEditing(false);
+    } else {
+      alert('Помилка збереження даних');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Серверна помилка');
+  }
+};
+
 
   const handleChangePassword = () => {
     // Тут має бути логіка зміни пароля (запит на сервер)

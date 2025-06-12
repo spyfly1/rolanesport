@@ -7,7 +7,7 @@ const Layout = ({
   toggleLogin, 
   toggleRegister, 
   toggleCart, 
-  cartItemCount,   // 👈 приходить з App.jsx
+  cartItemCount,  
   user 
 }) => {
   return (
@@ -16,7 +16,7 @@ const Layout = ({
         onLoginClick={toggleLogin}
         onRegisterClick={toggleRegister}
         toggleCart={toggleCart}
-        cartCount={cartItemCount}   // ✅ використовуємо проп cartItemCount
+        cartCount={cartItemCount}   
         user={user}
       />
       <main>

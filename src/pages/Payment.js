@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import './Payment.css'; // Обов’язково підключи CSS
 
 const Payment = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const Payment = () => {
     email: '',
   });
 
+  const [showToast, setShowToast] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -17,12 +20,27 @@ const Payment = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Дані замовлення:', formData);
-    // Тут можна реалізувати передачу в БД
+    setShowToast(true);
+
+    // Очистка форми
+    setFormData({
+      firstName: '',
+      lastName: '',
+      address: '',
+      phone: '',
+      email: '',
+    });
+
+    // Автоматично сховати повідомлення через 3 секунди
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
   };
 
   return (
     <div className="wrapper">
       <h2 className="payment-title">Оформлення замовлення</h2>
+
       <form className="payment-form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -65,9 +83,16 @@ const Payment = () => {
         />
         <button type="submit" className="login-button">Підтвердити замовлення</button>
       </form>
+
+      {showToast && (
+        <div className="toast-message">
+          ✅ Замовлення успішно оформлено!
+        </div>
+      )}
     </div>
   );
 };
 
 export default Payment;
+
 

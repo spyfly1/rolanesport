@@ -9,8 +9,7 @@ const Register = ({ onRegister }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/api/register', {  // шлях до твоєї реєстрації
-        method: 'POST',
+      const response = await fetch('http://localhost:5000/api/register', {  
         headers: {
           'Content-Type': 'application/json',
         },
